@@ -3,13 +3,14 @@
 size_t  ft_strlen(const char *s)
 {
         size_t  i;
-
+       
         i = 0;
         while (s[i])
                 i++;
         return (i);
 }
-static void *_free(char *str)
+
+void *_free(char *str)
 {
     free(str);
     return NULL;
@@ -17,26 +18,27 @@ static void *_free(char *str)
 char *ft_strjoin(char *s1, char *s2)
 {
     char    *dest;
+    char    *tmp;
     int     i;
     int     j;
 
+    tmp = s1;
     if (!s1)
-        s1 = "";
-    if (!s2)
-        s2 = "";
-    dest = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+        tmp = "";
+    dest = malloc(ft_strlen(tmp) + ft_strlen(s2) + 1);
     if (!dest)
         return (NULL);
     i = 0;
     j = 0;
-    while (s1[i])
+    while (tmp[i])
     {
-        dest[i] = s1[i];
+        dest[i] = tmp[i];
         i++;
     }
     while (s2[j])
         dest[i++] = s2[j++];
     dest[i] = '\0';
+    free(s1);
     return (dest);
 }
 
@@ -77,9 +79,13 @@ char *after_new_line (char *str)
         i++;
     char *dest = malloc (ft_strlen(str + i) + 1);
     if (!dest)
+    {
+        free(str);
         return NULL;
+    }   
     while (str[i])
         dest[k++] = str[i++];
     dest[k] = '\0';
+    free(str);
     return dest;
 }

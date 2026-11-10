@@ -8,7 +8,7 @@ static int ft_strchr(char *s, char c)
     {
         if (*s == c)
             return (1);
-            s++;
+        s++;
     }
     return (0);
 }
@@ -19,54 +19,59 @@ static void *ft_free(char *stach , char *buffer)
     free(buffer);
     return NULL;
 }
-char *ft_read (int fd , char *str)
+
+static char *ft_read(int fd, char *str)
 {
-    int bayt = 1;
-    char *temp;
-    char *buffer = malloc (BUFFER_SIZE + 1);
+    int     bayt;
+    char    *buffer;
+    char    *temp;
+
+    bayt = 1;
+    buffer = malloc(BUFFER_SIZE + 1);
     if (!buffer)
-        return NULL;
-    while (!ft_strchr(str,'\n') && bayt != 0)
+        return (_free(str));
+    buffer[0] = '\0';
+    while (!ft_strchr(buffer, '\n') && bayt)
     {
-        bayt = read (fd , buffer , BUFFER_SIZE);
+        bayt = read(fd, buffer, BUFFER_SIZE);
         if (bayt < 0)
-            return (ft_free(str,buffer));
+            return (ft_free(str, buffer));
+        if (bayt == 0)
+            break;
         buffer[bayt] = '\0';
-        temp = ft_strjoin(str , buffer);
+        temp = ft_strjoin(str, buffer);
         if (!temp)
-            return (ft_free(str,buffer));       
+            return (ft_free(str, buffer));
         str = temp;
     }
     free(buffer);
-    return str;
+    return (str);
 }
 
 char *get_next_line(int fd)
 {
-    static char *stach;
-    char *res ;
-    stach = ft_read(fd , stach);
-    if (!stach)
-        
-    res = buffer_new_line(stach);
-    stach = after_new_line(stach);
+    static char *stash;
+    char        *res;
+
+    if (fd < 0 || BUFFER_SIZE <= 0)
+        return (NULL);
+    stash = ft_read(fd, stash);
+    if (!stash || !*stash)
+    {
+        free(stash);
+        stash = NULL;
+        return (NULL);
+    }
+    res = buffer_new_line(stash);
+    if (!res)
+    {
+        free(stash);
+        stash = NULL;
+        return (NULL);
+    }
+    stash = after_new_line(stash);
     return (res);
 }
 
-int main ()
-{
-    int fd = open("file.txt", O_RDONLY);
-    if (fd == -1)
-        perror("open");
-    char *res1 = get_next_line(fd);
-    char *res2 = get_next_line(fd);
-    char *res3 = get_next_line(fd);
-    printf("%s",res1);
-    printf("%s",res2);
-    printf("%s",res3);
-    free(res1);
-    free(res2);
-    free(res3);
 
 
-}
