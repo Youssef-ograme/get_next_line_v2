@@ -1,29 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yoograme <yoograme@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/11 13:58:01 by yoograme          #+#    #+#             */
+/*   Updated: 2026/11/11 16:59:18 by yoograme         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "get_next_line.h"
 
 size_t  ft_strlen(const char *s)
 {
-        size_t  i;
-       
-        i = 0;
-        while (s[i])
-                i++;
-        return (i);
+    size_t  i;
+
+    i = 0;
+    if (!s)
+        return (0);
+    while (s[i])
+        i++;
+    return (i);
 }
 
-void *_free(char *str)
+void    *_free(char *str)
 {
     free(str);
-    return NULL;
+    return (NULL);
 }
-char *ft_strjoin(char *s1, char *s2)
+
+char    *ft_strjoin(char *s1, char *s2)
 {
     char    *dest;
     char    *tmp;
-    int     i;
-    int     j;
+    size_t  i;
+    size_t  j;
 
     tmp = s1;
-    if (!s1)
+    if (!tmp)
         tmp = "";
     dest = malloc(ft_strlen(tmp) + ft_strlen(s2) + 1);
     if (!dest)
@@ -42,50 +58,53 @@ char *ft_strjoin(char *s1, char *s2)
     return (dest);
 }
 
-char *buffer_new_line (char *str)
+char    *buffer_new_line(char *str)
 {
-    int i;
-    i = 0;
+    char    *dest;
+    size_t  i;
+
     if (!str || !str[0])
-        return NULL;
+        return (NULL);
+    i = 0;
     while (str[i] && str[i] != '\n')
         i++;
     if (str[i] == '\n')
         i++;
-    char *dest = malloc (i + 1);
+    dest = malloc(i + 1);
     if (!dest)
-        return NULL;
-    dest[i--] = 0;
-    while (i >= 0)
+        return (NULL);
+    dest[i] = '\0';
+    while (i > 0)
     {
-        dest[i] = str[i];
         i--;
+        dest[i] = str[i];
     }
-    return dest;
+    return (dest);
 }
 
-char *after_new_line (char *str)
+char    *after_new_line(char *str)
 {
-    int i;
-    int k;
+    char    *dest;
+    size_t  i;
+    size_t  k;
 
-    k = 0;
-    i = 0;
     if (!str)
-        return NULL;
+        return (NULL);
+    i = 0;
     while (str[i] && str[i] != '\n')
         i++;
     if (str[i] == '\n')
         i++;
-    char *dest = malloc (ft_strlen(str + i) + 1);
+    dest = malloc(ft_strlen(str + i) + 1);
     if (!dest)
     {
         free(str);
-        return NULL;
-    }   
+        return (NULL);
+    }
+    k = 0;
     while (str[i])
         dest[k++] = str[i++];
     dest[k] = '\0';
     free(str);
-    return dest;
+    return (dest);
 }

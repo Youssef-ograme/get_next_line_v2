@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yoograme <yoograme@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/11 13:57:58 by yoograme          #+#    #+#             */
+/*   Updated: 2026/11/11 16:55:05 by yoograme         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "get_next_line.h"
-// hello\nhello\nhhhhh
+
 static int ft_strchr(char *s, char c)
 {
     if (!s)
-        return 0;
+        return (0);
     while (*s)
     {
         if (*s == c)
@@ -13,11 +26,11 @@ static int ft_strchr(char *s, char c)
     return (0);
 }
 
-static void *ft_free(char *stach , char *buffer)
+static void *ft_free(char *stash, char *buffer)
 {
-    free(stach);
+    free(stash);
     free(buffer);
-    return NULL;
+    return (NULL);
 }
 
 static char *ft_read(int fd, char *str)
@@ -30,8 +43,7 @@ static char *ft_read(int fd, char *str)
     buffer = malloc(BUFFER_SIZE + 1);
     if (!buffer)
         return (_free(str));
-    buffer[0] = '\0';
-    while (!ft_strchr(buffer, '\n') && bayt)
+    while (!ft_strchr(str, '\n') && bayt)
     {
         bayt = read(fd, buffer, BUFFER_SIZE);
         if (bayt < 0)
@@ -72,6 +84,3 @@ char *get_next_line(int fd)
     stash = after_new_line(stash);
     return (res);
 }
-
-
-
