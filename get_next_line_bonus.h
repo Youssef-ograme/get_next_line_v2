@@ -6,7 +6,7 @@
 /*   By: yoograme <yoograme@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/11 13:58:07 by yoograme          #+#    #+#             */
-/*   Updated: 2026/11/11 16:37:45 by yoograme         ###   ########.fr       */
+/*   Updated: 2026/11/12 12:55:18 by yoograme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@
 #  define OPEN_MAX 1024
 # endif
 
-#define TOTAL_READ 666
+# ifndef TOTAL_READ_B 
+#define TOTAL_READ_B 666
+#endif
 
 # include <stddef.h>
 # include <unistd.h>

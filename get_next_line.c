@@ -6,7 +6,7 @@
 /*   By: yoograme <yoograme@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/11 13:57:58 by yoograme          #+#    #+#             */
-/*   Updated: 2026/11/11 16:55:05 by yoograme         ###   ########.fr       */
+/*   Updated: 2026/11/12 13:07:10 by yoograme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,33 @@ static char *ft_read(int fd, char *str)
     free(buffer);
     return (str);
 }
+static char *buffer_size_1(char*str , int fd)
+{
+    char buff[TOTAL_READ + 1];
+    int bayt;
+    char c;
+    int i;
 
+    i = 0;
+    bayt = 1;
+    while (bayt > 0)
+    {
+        bayt = read(fd,&c,1);
+        if (bayt < 0)
+            return (ft_free(str,NULL));
+        if (bayt == 1)
+            buff[i++] = c;
+        if (i > 0 && (c == '\n' || i == TOTAL_READ || bayt == 0))
+        {
+            buff[i] = '\0';
+            str = ft_strjoin(str,buff);
+            if (!str)
+                return NULL;
+            i = 0;
+        }
+    }
+    return str;
+}
 char *get_next_line(int fd)
 {
     static char *stash;
@@ -67,7 +93,10 @@ char *get_next_line(int fd)
 
     if (fd < 0 || BUFFER_SIZE <= 0)
         return (NULL);
-    stash = ft_read(fd, stash);
+    if (BUFFER_SIZE == 1)
+        stash = buffer_size_1(stash,fd);
+    else
+        stash = ft_read(fd, stash);
     if (!stash || !*stash)
     {
         free(stash);

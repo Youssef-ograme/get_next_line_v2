@@ -6,38 +6,40 @@
 /*   By: yoograme <yoograme@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/11 13:58:09 by yoograme          #+#    #+#             */
-/*   Updated: 2026/11/11 17:25:26 by yoograme         ###   ########.fr       */
+/*   Updated: 2026/11/12 12:46:59 by yoograme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
 
-/*char *buffer_sizeone(char *line, int fd)
+static char *buffer_size_1_bonus(char *line, int fd)
 {
-    char buff[TOTAL_READ + 1];
+    char buff[TOTAL_READ_B + 1];
     char c;
     int bytes;
     int i;
 
     i = 0;
     bytes = 1;
-    while(bytes)
+    while(bytes > 0)
     {
         bytes = read(fd, &c, 1);
         if(bytes < 0)
             return (ft_free_bonus(line, NULL));
         if(bytes == 1)
             buff[i++] = c;
-        if(c == '\n' || i == TOTAL_READ || bytes == 0)
+        if(i > 0 && (c == '\n' || i == TOTAL_READ_B || bytes == 0))
         {
             buff[i] = '\0';
             line = ft_strjoin_bonus(line, buff);
+            if (!line)
+                return NULL;
             i = 0;
         }
     }
     return line;
-}*/
+}
 
 char *ft_read_bonus(int fd, char *str)
 {
@@ -50,7 +52,7 @@ char *ft_read_bonus(int fd, char *str)
     if (!buffer)
         return NULL;
     buffer[0] = '\0';
-    while (!ft_strchr_bonus(buffer, '\n') && not)
+    while (!ft_strchr_bonus(buffer, '\n') && not > 0)
     {
         not = read(fd, buffer, BUFFER_SIZE);
         if (not < 0)
@@ -74,7 +76,10 @@ char *get_next_line(int fd)
 
     if (fd < 0 || BUFFER_SIZE <= 0)
         return (NULL);
-    stash[fd] = ft_read_bonus(fd, stash[fd]);
+    if (BUFFER_SIZE == 1)
+        stash[fd] = buffer_size_1_bonus(stash[fd],fd);
+    else 
+        stash[fd] = ft_read_bonus(fd, stash[fd]);
     if (!stash[fd] || !*stash[fd])
     {
         free(stash[fd]);

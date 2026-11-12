@@ -1,1 +1,0 @@
-hello said\0\n

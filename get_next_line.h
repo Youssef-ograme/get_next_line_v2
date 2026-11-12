@@ -6,7 +6,7 @@
 /*   By: yoograme <yoograme@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/11 13:57:57 by yoograme          #+#    #+#             */
-/*   Updated: 2026/11/11 15:54:57 by yoograme         ###   ########.fr       */
+/*   Updated: 2026/11/12 12:55:54 by yoograme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@
 
 # ifndef BUFFER_SIZE
 # define BUFFER_SIZE 10
+# endif
 
-#endif
 # ifndef OPEN_MAX
 # define OPEN_MAX 1024
-
 # endif
+
+# ifndef TOTAL_READ 
+# define TOTAL_READ 666
+# endif
+
 # include <stddef.h>
 # include <unistd.h>
 # include <stdio.h>
