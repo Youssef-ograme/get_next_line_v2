@@ -6,7 +6,7 @@
 /*   By: yoograme <yoograme@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/11 13:57:58 by yoograme          #+#    #+#             */
-/*   Updated: 2026/11/12 16:35:41 by yoograme         ###   ########.fr       */
+/*   Updated: 2026/11/13 10:55:42 by yoograme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*ft_read(int fd, char *str)
 	char	*temp;
 
 	bayt = 1;
-	buffer = malloc(BUFFER_SIZE + 1);
+	buffer = malloc((size_t)BUFFER_SIZE + 1);
 	if (!buffer)
 		return (ft_free(str, NULL));
 	while (!ft_strchr(str, '\n') && bayt)
@@ -114,3 +114,5 @@ char	*get_next_line(int fd)
 	stash = after_new_line(stash);
 	return (res);
 }
+
+

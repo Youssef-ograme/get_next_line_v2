@@ -6,7 +6,7 @@
 /*   By: yoograme <yoograme@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/11 13:58:09 by yoograme          #+#    #+#             */
-/*   Updated: 2026/11/12 16:14:32 by yoograme         ###   ########.fr       */
+/*   Updated: 2026/11/13 10:59:38 by yoograme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*ft_read_bonus(int fd, char *str)
 	char	*temp;
 
 	not = 1;
-	buffer = malloc(BUFFER_SIZE + 1);
+	buffer = malloc((size_t)BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
 	buffer[0] = '\0';
